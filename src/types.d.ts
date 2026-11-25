@@ -1,0 +1,1 @@
+declare module 'troika-three-text' { import { Mesh } from 'three'; export class Text extends Mesh { text:string; font:string; fontSize:number;color:string;anchorX:string;anchorY:string;textAlign:string;maxWidth:number;outlineWidth:number;outlineColor:string;sync():void; } }

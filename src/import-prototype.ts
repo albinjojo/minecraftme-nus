@@ -1,0 +1,5 @@
+import * as T from 'three';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+const scene=new T.Scene();scene.background=new T.Color('#d9bac3');scene.add(new T.HemisphereLight('#fff4df','#574c67',3));const sun=new T.DirectionalLight('#ffce9b',3);sun.position.set(5,8,4);scene.add(sun);
+const camera=new T.PerspectiveCamera(40,innerWidth/innerHeight,.1,100);camera.position.set(9,7,10);camera.lookAt(0,0,0);const r=new T.WebGLRenderer({antialias:true});r.setSize(innerWidth,innerHeight);document.body.append(r.domElement);
+new GLTFLoader().load('/models/bridge-prototype.gltf',g=>{scene.add(g.scene);const bounds=new T.Box3().setFromObject(g.scene);let meshes=0;g.scene.traverse(o=>{if((o as T.Mesh).isMesh)meshes++;});document.getElementById('status')!.textContent=`glTF import succeeded · ${meshes} meshes · bounds ${bounds.getSize(new T.Vector3()).toArray().map(v=>v.toFixed(1)).join(' × ')} · original fixture, no external assets`;r.render(scene,camera);},undefined,e=>{document.getElementById('status')!.textContent='Import failed: '+String(e);});
